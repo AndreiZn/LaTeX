@@ -1,0 +1,315 @@
+\documentclass[11pt]{article}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+\title{Изучение связи свойств темного гало и крупномасштабной структуры Вселенной}
+\author{Андрей\,Знобищев}
+\date{19 декабря 2016}
+\graphicspath{ {D:/Pictures/} }
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Данная работа является отчетом о научно-исследовательской работе за 7 семестр 2016/2017 учебного года в рамках учебной, преддипломной практики студента 326 группы Факультета Общей и Прикладной Физики Москвоского Физико-Технического Института (Государственного Университета). \\ 
+	Базовая организация, кафедра: Физический Институт Академии Наук им. П.Н. Лебедева, кафедра проблем физики и астрофизики.
+\\
+	Научный руководитель: Сергей Владимирович Пилипенко. 
+\end{abstract}
+
+\section{Вступленние}
+Современные наблюдения большого числа галактик в областях размера нескольких мегапарсек показывают, что распределение галактик неоднородно. (Рис.1 и Рис.2). \\
+Эта неоднородность является результатом роста малых флуктуаций плотности, которые возникли из-за гравитационной нестабильности в ранней Вселенной. Существует теория, описывающая данный процесс в общем. Также есть возможность численно моделировать рост флуктуаций и образование гравитационно связанных структур. Однако, как мы можем описывать наблюдательные данные количественно и сравнивать их с теорией и численным моделированием? \\
+Одна из базовых величин - это функция масс n(M) космологических структур, определяемая как\\
+\begin{equation}
+	dN = n(M)dM,
+\end{equation}
+где dN - число объектов на единицу объема с массой в промежутке от M до M+dM. 
+ 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\textwidth]{SDSS.jpg}
+\caption{Карта Вселенной, полученная из наблюдений SDSS. Расстояние до галактик выражается в терминах красного смещения}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{slice.png}
+\caption{Один из "срезов" симуляции MDR1 при красном смещении z = 0.53 }  
+\end{figure}
+
+ С наблюдательной точки зрения, процесс подсчета функции масс очевиден. Необходимо выбрать объекты заданной массы в указанной части пространства. Однако, удобно было бы иметь аналитическую формулу для выражения функции масс. И теоретическая работа получения данной функции была выполнена в 1974 году Прессом и Шехтером[2]. Следующее ниже известно как "Формализм Пресса-Шехтера". \\
+
+Обозначим $\delta$(x,t) флуктуацию плотности (далее временная зависимость опускается).  Другой параметр R: информация о поведении $\delta$(x) на масштабах меньше R не учитывается. Для этого используется "функция-окно"  W(x - x'):
+\begin{equation}
+	\delta(x,R) = \int d^3x \delta(x')W_{R}(x-x').
+\end{equation}
+Возможен разичный выбор функции-окна. В данной работе используется функция \textit{"top hat"}:
+\begin{equation}
+	\begin{split}
+	W (x - x') = 1,\ |x-x'|<R,\\ = 0,\ |x-x'| \geq  R
+	\end{split}
+\end{equation}  
+Сфера радиуса R содержит массу
+\begin{equation}
+M = \frac{4\pi}{3}\rho_0 R^3,
+\end{equation}
+Так как существует прямая связь R и M, можно обозначать $\delta(x,R)=\delta(x,M) \equiv \delta_M.$
+Ключевое предположение теории Пресса и Шехтера заключается в том, что поле плотности имеет Гауссово распределение: 
+\begin{equation}
+P(\delta_M)d \delta_M = \frac{1}{ \sqrt{2} \pi \sigma _M} \exp(-\frac{\delta_{M}^{2}}{2\sigma_{M}^{2}})d \delta_M, 
+\end{equation}
+где $\sigma_M$ - дисперсия поля плотности, фильтрованного на масштабе R, заключаещого в себе массу M. Пусть $\delta_c$ - это некоторая критическая плотность, которая будет определена позже. Получаем, что вероятность того, что $\delta_M$ превышает $\delta_c$:
+\begin{equation}
+P_{> \delta_c} (M) = \int_{\delta_c}^{\infty} P(\delta_M)d \delta_M.
+\end{equation}
+Вероятность $(6)$ зависит от фильтр-массы M и от красного смещения z, так как дисперсия зависит от красного смещения z:
+\begin{equation}
+\sigma_{M}^{2} = \sigma_{R}^{2} = \frac{1}{2\pi^2} \int_{0}^{\infty} dkk^2P_M(k,z)\tilde{W}_{R}^{2}(k),
+\end{equation}
+$P_M$(k,z) - массовый спектр мощности, а $\tilde{W}_{R}^{2}$(k) - Фурье преобразование функции "top hat".
+
+Наконец, функция масс n(M) должна быть определена как
+\begin{equation}
+\begin{split}
+n(M)dM = \frac{\rho_0}{M}[P_{> \delta_c} (M) - P_{> \delta_c} (M + dM)] \\ = - \frac{\rho_0}{M}\frac{dP_{> \delta_c}}{dM}dM \\ = - \frac{\rho_0}{M}\frac{dP_{> \delta_c}}{d \sigma_M} \frac{d\sigma_M}{dM}dM.
+\end{split}
+\end{equation}
+К сожалению, это формула не может претендавать на абсолютную точность, как минимум, потому, что она не учитывает участки пространства с пониженной плотностью (x: $\delta(x)<0$). В связи с этим, Пресс и Шехтер сделали еще одно предположение: участки пониженной плотности в конечном итоге аккрецируют на участки повышенной плотности, поэтому перед (8) был добавлен множитель 2.\\
+Объединяя (5)-(8) и последнее замечание, имеем 
+\begin{equation}
+n(M)dM = -\sqrt{\frac{2}{\pi}} \frac{d\sigma_M}{dM}\frac{\rho_0\delta_c}{M\sigma_{M}^{2}}\exp(-\frac{\delta_{c}^{2}}{2\sigma_{M}^{2}})dM
+\end{equation}
+
+\section{Вычисление функции масс}
+Стандартной процедурой является определение функции масс (9) путем вычисления дисперсии (7), используя массовый спект мощности из линейной теории.\\
+В космологии возможно вычислить спектр мощности теоретически. Начальный спектр (initial) $P_i(k)\propto k$ (в данном случае "начальный" относится к эпохе с квантовыми флуктуациями до эпохи инфляции). Впоследствии этот спектр видоизменяется за счет того, что отдельные моды сначала выходят из под горизонта в эпоху инфлции, затем опять входят в него на стадии "обычного" расширения. Также на него влияет наличие давления у вещества: оно приводит к размыванию возмущений на определенных масштабах. Все эти процессы характеризуются так называемой передаточной функцией T(k) (Mo и др., [3]). Итоговый спектр мощности записывается в виде P(k) = $P_i(k)\cdot T^2$(k). Массовый спектр мощности может быть измерен довольно точно на некоторых масштабах с использованием космического микроволнового фонового излучения (реликтового излучения). Вид спектра представлен на Рис.3.\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{spectrum.png}
+\caption{Массовый спектр мощности}  
+\end{figure}
+
+Этот спектр аппроксимируется следующим образом (Bardeen и др., 1986, [4]): \\
+\begin{equation}
+P(k) = A(T(k))^2k,
+\end{equation}
+\begin{equation}
+T(k) = \frac{ln(1+2.34q)}{2.34q}(1+3.89q+(16.1q)^2+(5.64q)^3+(6.71q)^4)^{-\frac{1}{4}},
+\end{equation}
+q = $\frac{k}{\Omega_mh^2}, A\approx4.735\cdot10^6.$ \\
+k выражается в h/Мпк, $\Omega_m \approx0.27, h = \frac{H}{100km/s/Mpc}\approx0.73$ - безразмерный параметр Хаббла.\\
+Фурье преобразование функции-окна - $ \tilde{W}_R(k)$:
+\begin{equation}
+\tilde{W}_R(k) = \frac{3sin(kR) - 3kRcos(kR)}{(kR)^3}
+\end{equation}
+Теперь необходимо вычислить дисперсию (7), используя (10)-(12).  
+\subsection{Приближенное интегрирование}
+Прежде всего заметим, что массовый спектр (10)-(11) имеет две ассимптотики. $P\propto k$, если k$<<$1, и $P\propto k^{-3}$, если k$>>$1. \\
+Кроме того, $\tilde{W}_R(k)$ может быть аппроксимирована:\\ 1) Если kR$<<$1, sin(kR)$\approx$kR и cos(kR)$\approx 1-(kR)^2/2$. \\
+$\sigma_{M}^{2} = \frac{1}{2\pi^2} \int_{0}^{\infty} dkk^2P(k)$\\
+2) Если kR$>>$1, 3kRcos(kR)$>>$3sin(kR). \\ \  $\sigma_{M}^{2} = \frac{1}{2\pi^2} \int_{0}^{\infty} dkk^2P(k)9(kR)^2cos^2(kR)/(kR)^6 = $, используя $cos^2(kR) = (1+cos(2kR))/2$ и теорему Римана об интеграле от осциллирующей функции $ = \frac{1}{2\pi^2} \int_{0}^{\infty} dkk^2P(k)\frac{9}{2(kR)^4}$\\
+\\
+Используя обе аппроксимации,вычислена дисперсия (7) на двух масштабах: $R>1/k_0$ и $R<1/k_0$, где $k_0\approx \Omega_m h^2$ - типичное значение k, при котором P(k) меняет свое поведение.\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{sigma2_appr.png}
+\caption{Дисперсия $\sigma_{M}^{2}$. Результат получен приближенным интегрированием. Логарифмический масштаб}  
+\end{figure}
+Результат является хороший оценкой дисперсии (7) и отражает общую зависимость данной функции от M, однако оцененная ошибка при подсчете дисперсии при k$>>1$ оказалась относительно большой. Поэтому было решено вычислить дисперсию (7) численно. 
+\subsection{Численное интегрирование с использованием Python}
+Численное вычисление было произведено с использованием Python и его библиотек - scipy и numpy. Результаты подсчета дисперсии (7) и функции масс (9) приведены  на рисунках 5 и 6. Ниже приведен программный код вычисления и визуализации этих функций с комментариями.
+
+\lstset{language=Python}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+from numpy import pi as pi
+import scipy.integrate as integrate
+
+A = 4.375e6 #constants
+Omega = 0.27
+h = 0.73
+M_S = 1.98e30
+Mpc = 3.0856776e22
+rho = 0.3*9.31e-27*Mpc**3/h**3
+sgm_s=1.686
+k_0 = Omega*h**2
+g = 4*pi*rho/3
+
+def Rad (M): #radius R of a sphere with the mass M
+    return (M/g)**(1/3)     
+    
+def P(x): #mass power spectrum (10)
+    k = np.exp(x)
+    return A*k*(T(k))**2
+            
+def T(x): #transitional function (11)
+    q = x/(Omega*h**2)
+    return np.log(1+2.34*q)*(2.34*q)**(-1)*(1+3.89*q+(16.1*q)**2+
+    (5.64*q)**3+(6.71*q)**4)**(-1/4)
+
+def W(x,R): #Fourier transform of the filter-function   
+    k = np.exp(x)
+    return (3*np.sin(k*R)-3*k*R*np.cos(k*R))/(k*R)**3
+    #return 1/(R)**4/k**3    
+
+def al(t, M): #al and br are auxiliary functions for calculating the variance (7)
+    return np.exp(t)*g**(-1/3)*M**(1/3)
+    
+def br(t, M):
+    a = al(t, M)
+    return 3*np.sin(a) - 3*a*np.cos(a)
+    
+def sgm2(M): #sigma^2 - the variance (7)
+    R = Rad (M)   
+    return ( integrate.quad(lambda t:
+    np.exp(3*t)*P(t)*(W(t,R))**2/(2*pi**2), np.log(1e-2), np.log(1e5))[0] )  
+
+def der_sgm2(M):  #derivative of sigma^2      
+    return ( integrate.quad(lambda t:
+    np.exp(3*t)*P(t)*2*br(t,M)*(br(t,M)-al(t,M)**2*np.sin(al(t,M)))/
+    (al(t,M)**6*M*2*pi**2), np.log(1e-2), np.log(1e5))[0] )
+
+def dersgm(M): #derivative of the variance 
+    return der_sgm2(M)/(2*np.sqrt(sgm2(M)))
+
+def n(M): #mass function
+    return np.sqrt(2/pi)*rho*dersgm(M)*sgm_s*
+    np.exp(-sgm_s**2/(2*sgm2(M)))/(M*sgm2(M))
+
+#Visualization:    
+M_0 = M_S*1e5; M_F = M_S*1e15
+x = np.logspace(np.log10(M_0), np.log10(M_F), num = 200) 
+y = [sgm2(x[i]) for i in range (len(x))]
+y1 = [n(x[i]) for i in range (len(x))]
+y2 = [y1[i]*x[i] for i in range (len(x))]
+plt.title('Mass function')
+plt.xlabel('M [Solar Mass]/h')
+plt.ylabel('dN(>M)/dlogM')
+plt.xscale('log')
+plt.yscale('log')
+plt.plot (x*h/M_S, y2)
+plt.show()
+\end{lstlisting}
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{sigma2_scipy.png}
+\caption{Дисперсия $\sigma_{M}^{2}$. Результат численного вычисления в Python. Логарифмический масштаб}  
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{Massf.png}
+\caption{Функция масс n(M). Результат численного вычисления в Python. Логарифмический масштаб}  
+\end{figure}
+
+\section{Анализ космологической симуляции}
+Следующим этапом работы было научиться анализировать космологические симуляции, вычислять по ним поле плотности и функцию масс и сравнивать полученные зависимости с предсказанными теоретически. Сергеем Владимировичем Пилипенко была предоставлена космологическая симуляция размера 32Мпк*32Мпк*32Мпк с 512$^3$ частицами. Большое количество частиц требует использовать нетривиальные алгоритмы подстчета поля потности. Общая схема алгоритма такова: пространство разделено на 100$^3$ ячеек и покрыто k$\cdot$100$^3$ сферами радиуса R. k - положительное рациональное число, выбираемое в соответствии с требуемой точностью. Далее подсчитывается количество частиц, попадающих в каждую сферу, полученное число умножается на массу одной частицы и делится на объем сферы. Кроме того, часть программного кода (особенно обращения к длинным массивам) были переписаны на C и вставлены в Python, используя библиотеку scipy.weave, что дало увеличение скорости работы программы в 27 раз. Однако общей программной средой по-прежнему остается среда Python, так как Python имеет незаменимые библотеки pygadgetreader (для чтения космологических симуляций), numpy и другие. Ниже приведен программный код вычисления поля плотности с комментариями.
+\\
+Результат вычисления представлен на рисунке 7.
+\lstset{language=Python}
+\begin{lstlisting}
+from __future__ import division #so that 3/2 = 1.5, 
+#but not 1 as in Python2.* 
+import pygadgetreader as pgr
+import numpy as np
+from numpy import pi
+from time import time
+from scipy import weave
+
+t0 = time()
+coord = pgr.readsnap ('rsnap_002.dat', 'pos', 1) 
+t1 = time() - t0
+maxcoord = 32
+numofcells = 100
+hx, hy, hz = maxcoord/numofcells, maxcoord/numofcells, maxcoord/numofcells
+numofsph = numofcells + 1 # = number of knots
+R = 0.999*hx
+V = 4/3*pi*R**3 
+
+nop = int(np.size(coord)/3) #number of particles
+rho = 1/V
+xmax, ymax, zmax = 32, 32, 32
+xmin, ymin, zmin = 0, 0, 0
+mx = int((xmax - xmin)/hx)
+my = int((ymax - ymin)/hy)
+mz = int((zmax - zmin)/hz)
+part = np.zeros((3))
+density = np.zeros((numofsph,numofsph,numofsph))
+r1 = int(R/hx) + 1; r2 = int(R/hy) + 1; r3 = int(R/hz) + 1
+
+def boundcond ():
+    density[100,:,:] = density [0, :, :]
+    density[:,100,:] = density [:, 0, :]
+    density[:,:,100] = density [:, :, 0]
+
+ccode = \
+        """
+        part[0] = coord[i*3]; part[1] = coord[i*3+1];
+        part[2] = coord[i*3+2];
+        """
+ccode2 = \
+        """
+        int index = 0;
+        int meff, neff, peff;
+        meff = m + i; neff = n + j; peff = p + k;
+        if (meff<0) {meff+=numofsph-1;}
+        if (neff<0) {neff+=numofsph-1;}
+        if (peff<0) {peff+=numofsph-1;}
+        if (meff>=numofsph) {meff-=numofsph+1;}
+        if (neff>=numofsph) {neff-=numofsph+1;}
+        if (peff>=numofsph) {peff-=numofsph+1;}
+        index = peff+neff*numofsph+meff*numofsph*numofsph;
+        density[index]+=rho;
+        """
+for i in range (nop):
+    weave.inline (ccode, ['i', 'part', 'coord'], compiler = 'gcc')
+    #part = coord[i]
+    x = part[0]; y = part[1]; z = part[2]    
+    m = int(x/hx); n = int(y/hy); p = int(z/hz)
+    for i in range (-r1+1, r1+1):
+        for j in range (-r2+1, r2+1):
+            for k in range (-r3+1, r3+1):
+                xsp = (m+i)*hx; ysp = (n+j)*hy; zsp = (p+k)*hz
+                if ((x-xsp)**2 + (y-ysp)**2 + (z - zsp)**2 <= R**2):
+                    weave.inline (ccode2, ['density', 'm', 'i', 'n', 'j', 'p', 'k', 
+                    'rho', 'numofsph'], compiler = 'gcc')                    
+boundcond()
+     
+\end{lstlisting}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{sim.jpg}
+\caption{X, Y и Z "срезы" вычисленного поля плотности}  
+\end{figure}
+
+\section{Выводы и планы на следующий семестр}
+В ходе работы были вычислены дисперсия (7) и функция масс (9) приближенным интегрированием и численно в рамках формализма Пресса-Шехтера, [2]. Кроме того, была обработана космологическая симуляция с большим количеством частиц (512$^3$) и построено соответсвующее поле плотности. Наконец, произведена оптимизация работы программы за счет использования комбинации языков программирования Python и C.\\
+План работ на следующий семестр включает в себя продолжение анализа данной космологической симуляции и проверку модифицированной теории Пресса-Шехтера на малых массах. Первостепенная задача:\\
+•	Разбить сферы по контрастам плотности на небольшое количество групп;\\
+•	Используя библиотеку RockStar Halo Finder, определить распределение гало темной материи по данному кубу и распределить гало по сферам;\\
+•	Построить функцию масс гало темной материи для данной симуляции и сравнить с функцией масс, предсказанной теоретически.\\
+•	Учесть фактор роста, чтобы получить достоверную информацию при z = 0, так как симуляция предоставлена при z = 1 (Информация о факторе роста - Barkana, Loeb. The first sources of light and the reionization of the universe (PR349, 2001), [4]).
+
+\begin{thebibliography}{9}
+\bibitem{Misner}
+Misner C.W., Thorne K.S., Wheeler J.A., Gravitation, 1973, W.H. Freeman, 1279 pp.
+\bibitem{PrssSch}
+Press W.H., Schechter P., 1974. Astrophys. J. 187, 425.
+\bibitem{Bosch}
+Mo H., Bosch F., White S., 2010, Galaxy formation and evolution,  Cambridge University Press, 840 pp.
+\bibitem{Barkana}
+Barkana R., Loeb A., 2001, Physics Reports 349, 125-238.
+\bibitem{Arhipova}
+Arkhipova N.A., Komberg B.V., Lukash V.N., Miheeva E.V., 2007, Astronomy J., 84(10), 874-884
+\end{thebibliography}
+\end{document}
